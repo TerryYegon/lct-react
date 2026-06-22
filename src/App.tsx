@@ -1,3 +1,3 @@
 export default function() {
-  return <h1>Hey Terry</h1>
+  return <h1 className="text-gray-500">Hey Terry</h1>
 }

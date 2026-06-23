@@ -1,9 +1,17 @@
 import { Button } from "./Button";
 import {endOfWeek, startOfWeek, format, eachDayOfInterval,} from "date-fns"
-export function HabitList(){
-    const habits =[
-        { id: 1, name: "Terry" },
-    ];
+
+
+ export type Habit = {
+    id : "string"; name: "string"
+}
+type HabitListProps = {
+    habits: Habit[]
+    deleteHabit: (id:string) => void
+}
+
+export function HabitList({habits,deleteHabit} : HabitListProps){
+    
     if (habits.length === 0) {
     return (<p className="text-zinc-500 py-12" >
         No habits added yet.</p>
@@ -11,18 +19,20 @@ export function HabitList(){
 }
 return <div className="flex flex-col gap-3">
 {habits.map(habit => (
-   <HabitItem key={habit.id} habit ={habit}/>
+   <HabitItem
+   deleteHabit ={deleteHabit}
+   key={habit.id} habit ={habit}/>
 ))}
 
 </div>
 }
 
 type HabitItemProps ={
-    habit :{
-        id : "string"; name: "string"
-    }
+    habit : Habit
+    deleteHabit: (id:string) => void
+    
 }
-function HabitItem( habit :HabitItemProps){
+function HabitItem( {habit, deleteHabit} :HabitItemProps){
 
     const visibleDate= eachDayOfInterval({
         start: startOfWeek(new Date()),
@@ -33,10 +43,10 @@ function HabitItem( habit :HabitItemProps){
        <div className="flex items-center justify-between">
         
         <div className="flex gap-3 items-center" >
-        <span className="font-medium">{habit. habit.name}</span>
+        <span className="font-medium">{habit.name}</span>
         <span className="text-sm text-amber-400">3 streak</span>
         </div>
-        <Button variant="ghost-destructive">Delete</Button>
+        <Button  variant="ghost-destructive" onClick={() => deleteHabit(habit.id)}>Delete</Button>
 
         </div> 
         <div className="flex gap-1.5">

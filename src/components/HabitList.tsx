@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import { Button } from "./Button";
 import {endOfWeek, startOfWeek, format, eachDayOfInterval,} from "date-fns"
+import { HabitContext } from "../Context/HabitProvider";
 
 
  export type Habit = {
@@ -33,7 +35,7 @@ type HabitItemProps ={
     
 }
 function HabitItem( {habit, deleteHabit} :HabitItemProps){
-
+useContext(HabitContext)
     const visibleDate= eachDayOfInterval({
         start: startOfWeek(new Date()),
         end: endOfWeek(new Date())

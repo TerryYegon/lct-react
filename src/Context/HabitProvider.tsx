@@ -1,4 +1,4 @@
-import { createContext , type ReactNode} from "react";
+import { createContext , useContext, type ReactNode} from "react";
 type Context = {
     name: string
 }
@@ -14,3 +14,8 @@ export function HabitProvider({children} : HabitProviderProps) {
     </HabitContext>
 
 }
+export function useHabits (){
+    const habitContext = useContext(HabitContext)
+    if(habitContext === null) throw new Error("Null context")
+        return habitContext
+} 

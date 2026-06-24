@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Button } from "./Button";
 import {endOfWeek, startOfWeek, format, eachDayOfInterval,} from "date-fns"
-import { HabitContext } from "../Context/HabitProvider";
+import { HabitContext, useHabits } from "../Context/HabitProvider";
 
 
  export type Habit = {
@@ -10,9 +10,10 @@ import { HabitContext } from "../Context/HabitProvider";
 type HabitListProps = {
     habits: Habit[]
     deleteHabit: (id:string) => void
+    visibleDates : Date []
 }
 
-export function HabitList({habits,deleteHabit} : HabitListProps){
+export function HabitList({habits,deleteHabit, visibleDates} : HabitListProps){
     
     if (habits.length === 0) {
     return (<p className="text-zinc-500 py-12" >
@@ -36,6 +37,7 @@ type HabitItemProps ={
 }
 function HabitItem( {habit, deleteHabit} :HabitItemProps){
 useContext(HabitContext)
+
     const visibleDate= eachDayOfInterval({
         start: startOfWeek(new Date()),
         end: endOfWeek(new Date())
